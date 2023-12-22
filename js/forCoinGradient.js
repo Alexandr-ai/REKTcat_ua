@@ -1,6 +1,18 @@
 (function() {
+    const coinOrbitElement = document.getElementById('coinOrbit');
+    let isActive = false;
+
+    function addActiveClass() {
+        coinOrbitElement.classList.add('active');
+        isActive = true;
+    }
+
+    function removeActiveClass() {
+        coinOrbitElement.classList.remove('active');
+        isActive = false;
+    }
+
     function updateOrbitClass() {
-        const coinOrbitElement = document.getElementById('coinOrbit');
         const orbitBottom = coinOrbitElement.getBoundingClientRect().bottom;
         const windowHeight = window.innerHeight;
         const windowWidth = window.innerWidth;
@@ -8,15 +20,23 @@
         if (windowWidth <= 574) {
             const coinOrbitTop = coinOrbitElement.getBoundingClientRect().top;
             if (orbitBottom < windowHeight && coinOrbitTop < windowHeight * 0.5) {
-                coinOrbitElement.classList.add('active');
+                if (!isActive) {
+                    setTimeout(addActiveClass, 2100);  
+                }
             } else {
-                coinOrbitElement.classList.remove('active');
+                if (isActive) {
+                    setTimeout(removeActiveClass, 0);  
+                }
             }
         } else {
             if (orbitBottom < windowHeight) {
-                coinOrbitElement.classList.add('active');
+                if (!isActive) {
+                    setTimeout(addActiveClass, 2100);  
+                }
             } else {
-                coinOrbitElement.classList.remove('active');
+                if (isActive) {
+                    setTimeout(removeActiveClass, 0);  
+                }
             }
         }
     }
